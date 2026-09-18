@@ -1,1 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#2563eb">
+<title>Offline — R2 Vault</title>
+<link rel="icon" href="/icons/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --surface: #f8fafc;
+  --text: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --border: #e5e7eb;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b0b0d;
+    --surface: #141417;
+    --text: #f5f5f7;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+    --border: #26262b;
+    --primary: #3b82f6;
+    --primary-hover: #60a5fa;
+    --shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  }
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+.wrap {
+  max-width: 400px;
+  width: 100%;
+  animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
 
+/* Icon */
+.icon-wrap {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 26px;
+}
+.icon-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow), 0 0 0 8px color-mix(in srgb, var(--primary) 12%, transparent);
+}
+.icon-bg svg {
+  width: 42px;
+  height: 42px;
+  color: #fff;
+  stroke-width: 1.8;
+}
+/* Pulse rings */
+.pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  border: 2px solid var(--primary);
+  opacity: 0;
+  animation: pulse 2.4s ease-out infinite;
+}
+.pulse.p2 { animation-delay: 1.2s; }
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+p.sub {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin: 0 0 24px;
+}
+p.sub strong { color: var(--text); font-weight: 600; }
+
+/* Status badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: 26px;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+  animation: blink 1.6s ease-in-out infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.dot.online { background: #22c55e; box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2); animation: none; }
+
+/* Button */
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 24px;
+  border-radius: 12px;
+  border: none;
+  background: var(--primary);
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--primary) 30%, transparent);
+  transition: transform 0.15s, background 0.15s, box-shadow 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+button:hover { background: var(--primary-hover); box-shadow: 0 10px 26px color-mix(in srgb, var(--primary) 40%, transparent); }
+button:active { transform: scale(0.97); }
+button svg { width: 16px; height: 16px; }
+button.spinning svg { animation: spin 0.9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.hint {
+  margin-top: 26px;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="icon-wrap">
+    <div class="pulse"></div>
+    <div class="pulse p2"></div>
+    <div class="icon-bg">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="1" y1="1" x2="23" y2="23"></line>
+        <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+        <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+        <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+        <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+        <line x1="12" y1="20" x2="12.01" y2="20"></line>
+      </svg>
+    </div>
+  </div>
+
+  <h1>You're offline</h1>
+  <p class="sub">
+    ইন্টারনেট কানেকশন পাওয়া যাচ্ছে না।<br>
+    সংযোগ ফিরে এলে <strong>R2 Vault</strong> আবার কাজ করবে।
+  </p>
+
+  <div class="badge">
+    <span class="dot" id="dot"></span>
+    <span id="statusText">No connection</span>
+  </div>
+
+  <div>
+    <button id="retryBtn" onclick="retry()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="23 4 23 10 17 10"></polyline>
+        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+      </svg>
+      Try again
+    </button>
+  </div>
+
+  <p class="hint">Reconnect করলে এই পেজ অটোমেটিক রিফ্রেশ হবে।</p>
+</div>
+
+<script>
+/* Live connection status */
+function updateStatus() {
+  const online = navigator.onLine;
+  const dot = document.getElementById('dot');
+  const txt = document.getElementById('statusText');
+  if (online) {
+    dot.classList.add('online');
+    txt.textContent = 'Back online';
+  } else {
+    dot.classList.remove('online');
+    txt.textContent = 'No connection';
+  }
+}
+updateStatus();
+window.addEventListener('online', updateStatus);
+window.addEventListener('offline', updateStatus);
+
+/* Auto-retry when network comes back */
+window.addEventListener('online', () => {
+  setTimeout(() => location.replace('/'), 800);
+});
+
+/* Manual retry */
+function retry() {
+  const btn = document.getElementById('retryBtn');
+  btn.classList.add('spinning');
+  btn.disabled = true;
+  if (!navigator.onLine) {
+    setTimeout(() => {
+      btn.classList.remove('spinning');
+      btn.disabled = false;
+    }, 1200);
+    return;
+  }
+  location.replace('/');
+}
+</script>
+</body>
+</html>
