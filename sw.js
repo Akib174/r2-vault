@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'r2-vault-v1';
+const CACHE_VERSION = 'r2-vault-v2';
 const STATIC_ASSETS = [
   '/', '/index.html', '/manifest.json', '/offline.html',
   '/icons/favicon.ico', '/icons/favicon-16x16.png', '/icons/favicon-32x32.png',
